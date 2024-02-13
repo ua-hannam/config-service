@@ -19,7 +19,7 @@ jobs:
     - name: Set Yaml
       uses: microsoft/variable-substitution@v1
       with:
-        files: ./src/main/resources/application-prod.yml
+        files: ./src/main/resources/application.yml
       env:
         spring.cloud.config.server.git.host-key: ${{ secrets.SSH_HOST_KEY }}
         spring.cloud.config.server.git.private-key: ${{ secrets.SSH_PRIVATE_KEY }}
