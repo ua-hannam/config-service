@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'ua-hannam/config-service'
 
 env:
   DOCKER_REGISTRY: http://211.205.161.133:5000
