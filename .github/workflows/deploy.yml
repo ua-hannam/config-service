@@ -31,7 +31,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
             java-version: 17
-            distribution: 'temurin'
 
       - name: Gradle caching
         uses: actions/cache@v3
