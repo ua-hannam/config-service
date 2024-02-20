@@ -70,7 +70,7 @@ jobs:
       - name: Docker Stop Container
         run: |
           CONTAINER_ID=$(docker ps --filter "ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}")
-          echo $CONTAINER_ID
+          echo "$CONTAINER_ID"
 #          sudo docker stop $() 2>/error_log || true
 
 #      - name: Docker Run New Container
