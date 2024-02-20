@@ -8,6 +8,7 @@ on:
 env:
   DOCKER_REGISTRY: 211.205.161.133:5000
   IMAGE_REPO: uahannam
+  SERVICE_NAME: config-service
 
 jobs:
   build_and_push:
@@ -59,8 +60,8 @@ jobs:
 
       - name: Build and Push to Harbor
         run: |
-          docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest .
-          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest
+          docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest .
+          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
 
   run_docker_image:
     needs: build_and_push
@@ -69,15 +70,12 @@ jobs:
     steps:
       - name: Docker Stop Container
         run: |
-          docker stop $(docker ps --format '{{.ID}} {{.Names}}' | awk '/config-service/{print $1}') 2>/dev/null || true
-          echo "Succeeded Stop Container"
+          docker stop $(docker ps --format '{{.ID}} {{.Names}}' | awk '/${{ env.SERVICE_NAME }}/{print $1}') 2>/dev/null || true
 
       - name: Docker Run New Container
         run: | 
-          docker run --name config-service --rm -d -p 9999:8888 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest
-          echo "Succeeded Run New Container"
+          docker run --name config-service --rm -d -p 9999:8888 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
 
       - name: Delete Old Docker Image
         run: | 
-          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service' | grep '<none>' | awk '{print $3}' | xargs -r docker rmi
-          echo "Succeeded Delete Old Docker Image"
+          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | grep '<none>' | awk '{print $3}' | xargs -r docker rmi
