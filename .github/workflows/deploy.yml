@@ -78,5 +78,7 @@ jobs:
           echo "Succeeded Run New Container"
         
 
-#      - name: Delete Old Docker Image
-#        run:
+      - name: Delete Old Docker Image
+        run: |
+          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service' | grep '<none>' | awk '{print $3}' | xargs -r docker rmi
+          docker ps | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service'
