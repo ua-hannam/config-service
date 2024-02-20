@@ -41,7 +41,7 @@ jobs:
 #            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 #            restore-keys: |
 #              ${{ runner.os }}-gradle-
-
+#
 #      - name: Gradlew grant
 #        run: chmod +x ./gradlew
 #
@@ -69,12 +69,11 @@ jobs:
     steps:
       - name: Docker Stop Container
         run: |
-          CONTAINER_ID=$(docker ps --filter "ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}")
-          echo $CONTAINER_ID > ~/docker_log_temp
-#          sudo docker stop $() 2>/error_log || true
+          CONTAINER_ID=$(docker ps --filter "ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.NAMES}}")
+          echo $CONTAINER_ID
 
 #      - name: Docker Run New Container
 #        run: docker run --name config-service --rm -d -p 9999:8888 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest
-
+#
 #      - name: Delete Old Docker Image
 #        run:
