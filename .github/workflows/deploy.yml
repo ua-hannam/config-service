@@ -57,7 +57,16 @@ jobs:
           username: ${{ secrets.HARBOR_USERNAME }}
           password: ${{ secrets.HARBOR_PASSWORD }}
 
-      - name: Build and Push client to Harbor
+      - name: Build and Push to Harbor
         run: |
           docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest .
           docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service:latest
+
+  run_docker_image:
+    needs: build_and_push
+    runs-on: self-hosted
+
+    steps:
+      - name: docker test
+        run: |
+          docker ps --filter "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}"
