@@ -69,4 +69,4 @@ jobs:
     steps:
       - name: docker test
         run: |
-          docker ps --filter "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}"
+          sudo docker ps --filter "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}"
