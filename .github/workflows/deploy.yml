@@ -34,7 +34,7 @@ jobs:
             java-version: 17
 
       - name: Gradle caching
-        uses: actions/cache@v3
+        uses: MasterworksIO/action-local-cache@2
         with:
             path: |
               ~/.gradle/caches
@@ -78,4 +78,4 @@ jobs:
 
       - name: Delete Old Docker Image
         run: |
-          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | awk '{print $3}' | xargs -r docker rmi
+          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | grep '<none>' |awk '{print $3}' | xargs -r docker rmi
