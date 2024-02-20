@@ -12,7 +12,7 @@ env:
 
 jobs:
   build_and_push:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -72,10 +72,11 @@ jobs:
         run: |
           docker stop $(docker ps --format '{{.ID}} {{.Names}}' | awk '/${{ env.SERVICE_NAME }}/{print $1}') 2>/dev/null || true
 
-      - name: Docker Run New Container
+      - name: Docker Pull Image and Run New Container
         run: | 
+          docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
           docker run --name ${{ env.SERVICE_NAME }} --rm -d -p 9999:8888 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
 
       - name: Delete Old Docker Image
-        run: | 
-          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | grep '<none>' | awk '{print $3}' | xargs -r docker rmi
+        run: |
+          docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | awk '{print $3}' | xargs -r docker rmi
