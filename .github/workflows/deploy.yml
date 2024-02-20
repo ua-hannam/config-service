@@ -74,7 +74,6 @@ jobs:
 
       - name: Docker Pull Image and Run New Container
         run: | 
-          docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
           docker run --name ${{ env.SERVICE_NAME }} --rm -d -p 9999:8888 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
 
       - name: Delete Old Docker Image
