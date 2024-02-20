@@ -69,7 +69,7 @@ jobs:
     steps:
       - name: Docker Stop Container
         run: |
-          docker stop $(docker ps --filter "ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/config-service" --format "{{.ID}}") 2>/dev/null || true
+          docker stop $(docker ps --format '{{.ID}} {{.Names}}' | awk '/config-service/{print $1}') 2>/dev/null || true
           echo "Succeeded Stop Container"
 
       - name: Docker Run New Container
