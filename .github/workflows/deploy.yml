@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_REGISTRY: harbor.uahannam.io
+  DOCKER_REGISTRY: harbor.uahannam.io:5443
   IMAGE_REPO: uahannam
   SERVICE_NAME: config-service
 
