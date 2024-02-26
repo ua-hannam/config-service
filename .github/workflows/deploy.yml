@@ -34,7 +34,7 @@ jobs:
             java-version: 17
 
       - name: Gradle caching
-        uses: MasterworksIO/action-local-cache@2
+        uses: actions/cache@v3
         with:
             path: |
               ~/.gradle/caches
