@@ -60,7 +60,6 @@ jobs:
 
       - name: Build and Push to Harbor
         run: |
-          cat /etc/pki/ca-trust/source/anchors/
           docker login {{ env.DOCKER_REGISTRY }} -u ${{ secrets.HARBOR_USERNAME }} -p ${{ secrets.HARBOR_PASSWORD }}
           docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest .
           docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
