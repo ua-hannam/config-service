@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          token: #${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set Yaml
         uses: microsoft/variable-substitution@v1
@@ -75,7 +75,6 @@ jobs:
 
       - name: Delete Old Docker Image
         run: docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | grep '<none>' |awk '{print $3}' | xargs -r docker rmi
-
 
   notify_success:
     needs: [build_and_push, run_docker_image]
