@@ -79,9 +79,9 @@ jobs:
   slack_notification:
     needs: [build_and_push, run_docker_image]
     runs-on: ubuntu-latest
+    if: always()
     steps:
       - uses: 8398a7/action-slack@v3
-        if: always()
         with:
           status: ${{ job.status }}
           author_name: CI Monitoring_bot
