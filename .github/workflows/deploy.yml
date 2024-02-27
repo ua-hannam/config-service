@@ -79,9 +79,11 @@ jobs:
   notify_failure:
     needs: [ build_and_push, run_docker_image ]
     runs-on: ubuntu-latest
-    if: ${{ needs.build_and_push.result == 'failure' || needs.run_docker_image.result == 'failure' }}
+    if: always()
+
     steps:
       - uses: 8398a7/action-slack@v3
+        if: ${{ needs.build_and_push.result == 'failure' || needs.run_docker_image.result == 'failure' }}
         with:
           status: failure
           author_name: CI Monitoring_bot
@@ -94,9 +96,10 @@ jobs:
   notify_success:
     needs: [build_and_push, run_docker_image]
     runs-on: ubuntu-latest
-    if: ${{ needs.build_and_push.result == 'success' && needs.run_docker_image.result == 'success'}}
+    if: always()
     steps:
       - uses: 8398a7/action-slack@v3
+        if: ${{ needs.build_and_push.result == 'success' && needs.run_docker_image.result == 'success'}}
         with:
           status: success
           author_name: CI Monitoring_bot
