@@ -14,7 +14,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -32,6 +32,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
             java-version: 17
+            distribution: 'corretto'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
@@ -85,7 +86,7 @@ jobs:
         with:
           status: success
           author_name: CI Monitoring_bot
-          fields: repo,message,commit,eventName,ref,workflow,author
+          fields: repo,message,commit,eventName,ref,workflow,author,took
           if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -99,7 +100,7 @@ jobs:
         with:
           status: failure
           author_name: CI Monitoring_bot
-          fields: repo,message,commit,eventName,ref,workflow,author
+          fields: repo,message,commit,eventName,ref,workflow,author,took
           if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
