@@ -1,6 +1,5 @@
 server:
   port: 8888
-
 spring:
   application:
     name: config-service
@@ -16,3 +15,10 @@ spring:
           host-key-algorithm: ecdsa-sha2-nistp256
           private-key:
           passphrase: 
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:
+    register-with-eureka: true
+    fetch-registry: true
