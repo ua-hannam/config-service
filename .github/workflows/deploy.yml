@@ -79,8 +79,12 @@ jobs:
   slack_notification:
     needs: [build_and_push, run_docker_image]
     runs-on: ubuntu-latest
-    if: always()
     steps:
+      - name: test
+        run: | 
+          echo 'JOB_STATUS=${{ needs.build_and_push.result }}' >> $GITHUB_ENV
+          echo '${{ env.JOB_STATUS }}
+
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
