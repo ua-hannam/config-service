@@ -79,7 +79,8 @@ jobs:
   notify_success:
     needs: [build_and_push, run_docker_image]
     runs-on: ubuntu-latest
-    if: ${{ needs.build_and_push.result == 'success' && needs.run_docker_image.result == 'success'}}
+#    if: ${{ needs.build_and_push.result == 'success' && needs.run_docker_image.result == 'success'}}
+    if: ${{ failure() }}
     steps:
       - uses: 8398a7/action-slack@v3
         with:
@@ -94,7 +95,8 @@ jobs:
   notify_failure:
     needs: [ build_and_push, run_docker_image ]
     runs-on: ubuntu-latest
-    if: ${{ needs.build_and_push.result == 'failure' || needs.run_docker_image.result == 'failure'}}
+#    if: ${{ needs.build_and_push.result == 'failure' || needs.run_docker_image.result == 'failure'}}
+    if: ${{ success() }}
     steps:
       - uses: 8398a7/action-slack@v3
         with:
