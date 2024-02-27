@@ -62,7 +62,7 @@ jobs:
           docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest .
           docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest
 
-  deploy:
+  run_docker_image:
     needs: build_and_push
     runs-on: self-hosted
 
@@ -79,7 +79,7 @@ jobs:
   notify_success:
     needs: [build_and_push, run_docker_image]
     runs-on: ubuntu-latest
-    if:  ${{ success() }}
+    if: ${{ needs.build_and_push.result == 'success' && needs.run_docker_image.result == 'success'}}
     steps:
       - uses: 8398a7/action-slack@v3
         with:
@@ -94,7 +94,7 @@ jobs:
   notify_failure:
     needs: [ build_and_push, run_docker_image ]
     runs-on: ubuntu-latest
-    if: ${{ failure() }}
+    if: ${{ needs.build_and_push.result == 'failure' || needs.run_docker_image.result == 'failure'}}
     steps:
       - uses: 8398a7/action-slack@v3
         with:
