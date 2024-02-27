@@ -78,7 +78,7 @@ jobs:
 
   slack_notification:
     needs: [build_and_push, run_docker_image]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: 8398a7/action-slack@v3
         if: always()
