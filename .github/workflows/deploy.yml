@@ -86,8 +86,7 @@ jobs:
         with:
           status: success
           author_name: CI Monitoring_bot
-          job_name: Build and analyze
-          fields: repo,message,commit,eventName,ref,workflow,author,took
+          fields: repo,message,commit,eventName,ref,workflow,author
           if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -101,8 +100,7 @@ jobs:
         with:
           status: failure
           author_name: CI Monitoring_bot
-          job_name: Build and analyze
-          fields: repo,message,commit,eventName,ref,workflow,author,took
+          fields: repo,message,commit,eventName,ref,workflow,author
           if_mention: always
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
