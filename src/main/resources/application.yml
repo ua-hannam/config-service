@@ -18,7 +18,7 @@ spring:
 
 eureka:
   instance:
-    preferIpAddress: true
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone:
