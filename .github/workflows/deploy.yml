@@ -73,9 +73,7 @@ jobs:
 
       - name: Docker Pull Image and Run New Container
         run: | 
-          docker run --name ${{ env.SERVICE_NAME }} \
-          --rm -d -p 9999:9999 ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest \
-          -e 'EUREKA_INSTANCE_HOSTNAME=${{ secrets.DEVSEO_SERVER_PUBLIC_IP }}'
+          docker run --name ${{ env.SERVICE_NAME }} --rm -d -p 9999:9999 -e 'EUREKA_INSTANCE_HOSTNAME=${{ secrets.DEVSEO_SERVER_PUBLIC_IP }}' ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}:latest 
 
       - name: Delete Old Docker Image
         run: docker images | grep '${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_REPO }}/${{ env.SERVICE_NAME }}' | grep '<none>' |awk '{print $3}' | xargs -r docker rmi
