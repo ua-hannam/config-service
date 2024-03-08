@@ -20,7 +20,6 @@ eureka:
   instance:
     hostname:
     instance-id: config-service
-    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone:
