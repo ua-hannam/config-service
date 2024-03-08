@@ -17,8 +17,6 @@ spring:
           passphrase: 
 
 eureka:
-  instance:
-    hostname: 211.205.161.133
   client:
     serviceUrl:
       defaultZone:
