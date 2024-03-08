@@ -19,7 +19,7 @@ spring:
 eureka:
   instance:
     hostname:
-    instance-id: config-service
+#    instance-id: config-service
   client:
     serviceUrl:
       defaultZone:
