@@ -17,6 +17,9 @@ spring:
           passphrase: 
 
 eureka:
+  instance:
+    hostname:
+    instance-id: config-service
   client:
     serviceUrl:
       defaultZone:
